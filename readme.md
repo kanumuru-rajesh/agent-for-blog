@@ -51,7 +51,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 Once the environment is set up and activated, you can run the agent using the following command from the root directory:
 
 ```bash
-python Blog-Agent/agent.py
+python3 Blog-Agent/agent.py
 ```
 
 Follow the on-screen prompts to enter a topic for your blog post. The generated blog will be saved automatically.
