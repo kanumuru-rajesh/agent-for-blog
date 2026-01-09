@@ -52,3 +52,7 @@ typing_extensions==4.15.0
 urllib3==2.6.3
 yarl==1.22.0
 zstandard==0.25.0
+python-dotenv
+langchain
+langchain-openai
+openai
