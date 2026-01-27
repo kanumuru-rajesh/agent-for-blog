@@ -17,31 +17,32 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 IMAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 @tool
-def save_blog(content: str) -> str:
+def save_blog(content: str, blog_id: str) -> str:
     """
-    Save the blog content to a markdown file.
+    Save the blog content to a unique named markdown file.
     """
-    file_path = OUTPUT_DIR / "blog.md"
+    file_path = OUTPUT_DIR / f"{blog_id}.md"
     file_path.write_text(content, encoding="utf-8")
     return f"Blog saved to {file_path}"
 
 @tool
-def generate_blog_image(prompt: str) -> str:
+def generate_blog_image(prompt: str, blog_id: str) -> str:
     """
-    Generate a blog header image using an AI image model and save it locally.
+    Generate a blog header image and save it locally.
     """
-    image_path = IMAGE_DIR / "header.png"
+    image_path = IMAGE_DIR / f"{blog_id}_header.png"
 
     result = client.images.generate(
-        model="gpt-image-1",
+        model="dall-e-3",
         prompt=prompt,
-        size="1024x1024"
+        size="1024x1024",
+        response_format="b64_json"
     )
 
-    image_base64 = result.data[0].b64_json
-    image_bytes = base64.b64decode(image_base64)
+    image_bytes = base64.b64decode(result.data[0].b64_json)
 
     with open(image_path, "wb") as f:
         f.write(image_bytes)
 
     return f"Blog image generated and saved to {image_path}"
+d
